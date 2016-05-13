@@ -355,7 +355,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if nc -w 5 -z localhost 8081 ; then\nif ! curl -s \"http://localhost:8081/status\" | grep -q \"packager-status:running\" ; then\necho \"Port 8081 already in use, packager is either not running or not running correctly\"\nexit 2\nfi\nelse\nopen ./ReactComponents/launchPackager.command || echo \"Can't start packager automatically\"\nfi";
+			shellScript = "# debug server only start once, and only start at debug mode.\nif [ \"Debug\" == \"$CONFIGURATION\" ];then\n    if nc -w 5 -z localhost 8081 ; then\n        if ! curl -s \"http://localhost:8081/status\" | grep -q \"packager-status:running\" ; then\n            echo \"Port 8081 already in use, packager is either not running or not running correctly\"\n            exit 2\n        fi\n    else\n        open ./ReactComponents/launchPackager.command || echo \"Can't start packager automatically\"\n    fi\nelse # when it is release mode, we package RN components to bundle.\n    ./ReactComponents/packageBundle.sh\nfi\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -15,7 +15,7 @@ var styles = React.StyleSheet.create({
 class SimpleApp extends React.Component {
   render() {
     return <View style={styles.container}>
-        <Text>This is a simple application.</Text>
+        <Text>Hello Integeration Pattern.</Text>
       </View>;
   }
 }
